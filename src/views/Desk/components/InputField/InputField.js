@@ -35,6 +35,35 @@ const CREATE_MSG = gql`
   }
 `;
 
+const TestDialog = props => {
+  const { open, onClose, onSave, onCancel } = props;
+
+  return (
+    <Dialog open={open} onClose={onClose}>
+      <DialogTitle>Dialog Title</DialogTitle>
+      <DialogContent>Dialog Content</DialogContent>
+      <DialogActions>
+        <Button
+          variant="contained"
+          onClick={() => {
+            onSave && onSave();
+          }}
+        >
+          ok
+        </Button>
+        <Button
+          variant="contained"
+          onClick={() => {
+            onCancel && onCancel();
+          }}
+        >
+          cancel
+        </Button>
+      </DialogActions>
+    </Dialog>
+  );
+};
+
 const InputField = props => {
   const [save, setSave] = useState(false);
   const [createMsg, { loading: msgLoading }] = useMutation(CREATE_MSG, {
@@ -181,6 +210,21 @@ const InputField = props => {
             msg={"Loading...1"}
           />
           <Loading open={msgLoading} msg={"Loading...2"} />
+
+          <TestDialog
+            open={save}
+            onClose={() => {
+              setSave(false);
+            }}
+            onSave={() => {
+              console.log("save");
+              setSave(false);
+            }}
+            onCancel={() => {
+              console.log("cancel");
+              setSave(false);
+            }}
+          />
         </Grid>
       </Grid>
     </Box>
