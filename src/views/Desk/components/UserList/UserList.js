@@ -54,7 +54,9 @@ const UserList = () => {
       style={{ boxSizing: "border-box" }}
     >
       <Loading open={loading || removeUserLoading} msg={"Loading..."} />
-      <Typography variant="h4">User List</Typography>
+      <Box>
+        <Typography variant="h4">User List</Typography>
+      </Box>
       {!loading &&
         data &&
         data.searchUser.map((user, index) => {
@@ -80,6 +82,7 @@ const UserList = () => {
             </Box>
           );
         })}
+
       <WarnDialog
         open={warn.status}
         onClose={() => {

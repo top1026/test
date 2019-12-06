@@ -63,7 +63,9 @@ const MsgList = () => {
       style={{ boxSizing: "border-box" }}
     >
       <Loading open={loading || removeMessageLoading} msg={"Loading..."} />
-      <Typography variant="h4">MSG LIST</Typography>
+      <Box>
+        <Typography variant="h4">MSG LIST</Typography>
+      </Box>
       {!loading &&
         contents.map((msg, index) => {
           return (
@@ -88,6 +90,7 @@ const MsgList = () => {
             </Box>
           );
         })}
+
       <WarnDialog
         open={warn.status}
         onClose={() => {
