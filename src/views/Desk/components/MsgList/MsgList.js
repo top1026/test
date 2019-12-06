@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, IconButton } from "@material-ui/core";
+import { Box, IconButton, Typography } from "@material-ui/core";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 
 import { Loading } from "views/components/Loading";
@@ -13,9 +13,6 @@ const LIST_MSG = gql`
     messages {
       id
       text
-      user {
-        username
-      }
     }
   }
 `;
@@ -66,6 +63,7 @@ const MsgList = () => {
       style={{ boxSizing: "border-box" }}
     >
       <Loading open={loading || removeMessageLoading} msg={"Loading..."} />
+      <Typography variant="h4">MSG LIST</Typography>
       {!loading &&
         contents.map((msg, index) => {
           return (

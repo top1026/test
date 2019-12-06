@@ -10,7 +10,8 @@ import {
   DialogTitle,
   DialogContent,
   InputAdornment,
-  IconButton
+  IconButton,
+  Tooltip
 } from "@material-ui/core";
 import SearchIcon from "@material-ui/icons/Search";
 import { useMutation } from "@apollo/react-hooks";
@@ -66,6 +67,11 @@ const TestDialog = props => {
 
 const InputField = props => {
   const [save, setSave] = useState(false);
+  const emailRef = useRef();
+  const nameRef = useRef();
+  const passwordRef = useRef();
+  const textRef = useRef();
+
   const [createMsg, { loading: msgLoading }] = useMutation(CREATE_MSG, {
     onCompleted: data => {
       console.log(data);
@@ -77,7 +83,7 @@ const InputField = props => {
     refetchQueries: [{ query: LIST_MSG }],
     awaitRefetchQueries: true
   });
-  const [signUp, { loading: signupLoading }] = useMutation(SIGNUP, {
+  const [signUpNcreateMsg, { loading: signupLoading }] = useMutation(SIGNUP, {
     onCompleted: data => {
       console.log(data);
       createMsg({
@@ -106,11 +112,6 @@ const InputField = props => {
     awaitRefetchQueries: true
   });
 
-  const emailRef = useRef();
-  const nameRef = useRef();
-  const passwordRef = useRef();
-  const textRef = useRef();
-
   useEffect(() => {});
 
   return (
@@ -136,13 +137,15 @@ const InputField = props => {
                 InputProps={{
                   endAdornment: (
                     <InputAdornment position="end">
-                      <IconButton
-                        onClick={() => {
-                          setSave(true);
-                        }}
-                      >
-                        <SearchIcon />
-                      </IconButton>
+                      <Tooltip title="Dialog Test">
+                        <IconButton
+                          onClick={() => {
+                            setSave(true);
+                          }}
+                        >
+                          <SearchIcon />
+                        </IconButton>
+                      </Tooltip>
                     </InputAdornment>
                   )
                 }}
@@ -165,7 +168,7 @@ const InputField = props => {
               variant="contained"
               onClick={() => {
                 console.log("aa");
-                signUp({
+                signUpNcreateMsg({
                   variables: {
                     email: emailRef.current.value,
                     username: nameRef.current.value,
@@ -174,7 +177,7 @@ const InputField = props => {
                 });
               }}
             >
-              SAVE
+              {"SIGNUP && MSG SAVE"}
             </Button>
             <Button
               variant="contained"
@@ -188,7 +191,7 @@ const InputField = props => {
                 });
               }}
             >
-              MSG SAVE
+              {"ONLY MSG SAVE"}
             </Button>
             <Button
               variant="contained"
@@ -207,9 +210,9 @@ const InputField = props => {
           </Grid>
           <Loading
             open={signupLoading || signUpOnlyLoading}
-            msg={"Loading...1"}
+            msg={"Loading...1(SignUP)"}
           />
-          <Loading open={msgLoading} msg={"Loading...2"} />
+          <Loading open={msgLoading} msg={"Loading...2(Create Message)"} />
 
           <TestDialog
             open={save}

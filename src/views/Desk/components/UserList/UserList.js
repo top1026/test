@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Box, IconButton } from "@material-ui/core";
+import { Box, IconButton, Typography } from "@material-ui/core";
 import { useQuery, useMutation } from "@apollo/react-hooks";
 import gql from "graphql-tag";
 import { Loading } from "views/components/Loading";
@@ -54,6 +54,7 @@ const UserList = () => {
       style={{ boxSizing: "border-box" }}
     >
       <Loading open={loading || removeUserLoading} msg={"Loading..."} />
+      <Typography variant="h4">User List</Typography>
       {!loading &&
         data &&
         data.searchUser.map((user, index) => {

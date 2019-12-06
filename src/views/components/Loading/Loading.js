@@ -24,7 +24,7 @@ const Loading = props => {
             style={{ height: "100%" }}
           >
             <Grid item>
-              <Grid container>
+              <Grid container justify="center">
                 <CircularProgress />
               </Grid>
               <Grid container>
